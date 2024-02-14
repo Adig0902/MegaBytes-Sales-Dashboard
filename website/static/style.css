@@ -1,0 +1,13 @@
+.left-imgae {
+    float: left;
+}
+.left-image + div {
+    margin-left: 220px;
+}
+
+.right-image {
+    float: right;
+}
+.right-image + div {
+    margin-left: 220px;
+}
