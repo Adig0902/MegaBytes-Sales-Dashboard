@@ -1,0 +1,81 @@
+Todays Total Income: 290.00
+
+The highest Basket spend was: 11.50
+
+The average cost in a basket is: 6.44
+
+
+The most popular item is: Americano
+
+There is a tie for the least popular items.
+They are: ['Panini', 'Stroopwafel', 'Buttered Roll']
+
+MVP staff member (Most Transactions):
+Emma with 10 Transactions
+
+MVP staff member (Most Accumulated Cost):
+Ima  with  £67.40 of sales
+
+Number of sales for each Item:
+Americano        34
+Mocha            29
+Tea              25
+Hot Chocolate    24
+Cappuccino       24
+Latte            17
+Muffin            4
+Toast             3
+Croissant         2
+Panini            1
+Stroopwafel       1
+Buttered Roll     1
+Name: count, dtype: int64
+
+Proportion of sales belonging to each item:
+Americano        20.61%
+Mocha            17.58%
+Tea              15.15%
+Hot Chocolate    14.55%
+Cappuccino       14.55%
+Latte             10.3%
+Muffin            2.42%
+Toast             1.82%
+Croissant         1.21%
+Panini            0.61%
+Stroopwafel       0.61%
+Buttered Roll     0.61%
+Name: proportion, dtype: object
+
+Sales by Payment Method:
+Payment Method
+Debit      29
+Cash        6
+Voucher     5
+Credit      5
+Name: count, dtype: int64
+
+
+The most common payment method is: Debit
+
+
+The least common payment method is: Voucher
+
+
+Items sold by each payment method:
+Payment Method
+Cash        22
+Credit      19
+Debit      111
+Voucher     13
+Name: Total Items, dtype: int32
+
+
+Total cost made by each payment method:
+Payment Method
+Cash        36.90
+Credit      36.50
+Debit      192.60
+Voucher     24.00
+Name: Cost, dtype: object
+
+

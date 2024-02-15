@@ -20,8 +20,7 @@ def plot_item_popularity_chart(df, day_name, ax):
 
 
 def overall_week_item_popularity_chart(compiled_data):
-  overall_week_data = compiled_data[["Basket"]].explode("Basket",
-                                                        ignore_index=False)
+  overall_week_data = compiled_data[["Basket"]].explode("Basket",ignore_index=False)
   overall_week_item_counts = overall_week_data["Basket"].value_counts()
   overall_week_item_indices = np.arange(len(overall_week_item_counts))
 
@@ -40,7 +39,6 @@ def overall_week_item_popularity_chart(compiled_data):
       rotation=45,
       ha="right",
   )
-  plt.show()
 
 
 def payment_methods_pie_chart(df):
@@ -55,4 +53,3 @@ def payment_methods_pie_chart(df):
       colors=["#ff9999", "#66b3ff", "#99ff99", "#ffcc99"],
   )
   plt.title("Payment Methods Distribution")
-  plt.show()

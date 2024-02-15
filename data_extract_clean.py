@@ -1,5 +1,6 @@
-import pandas as pd
+import sys
 import os
+import matplotlib.pyplot as plt
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -67,3 +68,42 @@ def extract_day_name(file_name):
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+def save_output_to_file(output_function, folder, filename, *args, **kwargs):
+  """
+    Save the output of a function to a file in a specified folder.
+
+    Parameters:
+        output_function (callable): The function whose output needs to be saved.
+        folder (str): The folder where the file should be saved.
+        filename (str): The name of the file to save the output.
+        *args: Positional arguments to pass to the output_function.
+        **kwargs: Keyword arguments to pass to the output_function.
+    """
+  if not os.path.exists(folder):
+    os.makedirs(folder)  # Create the folder if it doesn't exist
+
+  filepath = os.path.join(folder, filename)
+
+  with open(filepath, "w") as f:
+    sys.stdout = f  # Redirect stdout to the file
+    output_function(*args, **kwargs)
+    sys.stdout = sys.__stdout__  # Reset stdout to the console
+
+
+def save_graph_to_folder(figure, folder, filename):
+  """
+    Save a matplotlib graph to a specified folder with a specified filename.
+
+    Parameters:
+        figure (matplotlib.figure.Figure): The matplotlib figure to save.
+        folder (str): The folder where the graph should be saved.
+        filename (str): The name of the file to save the graph.
+    """
+  if not os.path.exists(folder):
+    os.makedirs(folder)  # Create the folder if it doesn't exist
+
+  filepath = os.path.join(folder, filename)
+  figure.savefig(filepath)
+  plt.close(figure)  # Close the figure to free up resources

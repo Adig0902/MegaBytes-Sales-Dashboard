@@ -14,13 +14,13 @@
         <p>Daily Sales Dashboard</p>
         <nav>
         <a href="/">Home </a>
-        <a href="/monday">Monday </a>
-        <a href="/tuesday">Tuesday </a>
-        <a href="/wednesday">Wednesday </a>
-        <a href="/thursday">Thursday</a>
-        <a href="/friday">Friday </a>
-        <a href="/saturday">Saturday </a>
-        <a href="/sunday">Sunday </a>
+        <a href="{{url_for('my_view.monday')}}">Monday </a>
+        <a href="{{url_for('my_view.tuesday')}}">Tuesday </a>
+        <a href="{{url_for('my_view.wednesday')}}">Wednesday </a>
+        <a href="{{url_for('my_view.thursday')}}">Thursday</a>
+        <a href="{{url_for('my_view.friday')}}">Friday </a>
+        <a href="{{url_for('my_view.saturday')}}">Saturday </a>
+        <a href="{{url_for('my_view.sunday')}}">Sunday </a>
     </nav>
 </header>
     

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Wednesday</h2>
+    {% if figures %}
+        <p>Total Income: {{ figures.total_income }}</p>
+        <p>Highest Spend: {{ figures.highest_spend }}</p>
+        <p>Best Selling Item: {{ figures.best_selling_item }}</p>
+        <p>Worst Selling Item: {{ figures.worst_selling_item }}</p>
+        <p>MVP Staff Member: {{ figures.mvp_staff_member }}</p>
+        <p>Average Basket Spend: {{ figures.average_basket_spend }}</p>
+    {% else %}
+        <p>No data available for Monday.</p>
+    {% endif %}
+    <form action="/add" method="post">
+        <label>Input Data</label>
+        <div>
+        <input type="text" name="total_income"placeholder="Total Income Made">
+        <input type="text" name="highest_spend"placeholder="Enter Highest Spend">
+        <input type="text" name="best_selling_item"placeholder="Best Selling Item">
+        <input type="text" name="worst_selling_item"placeholder="Worst Selling Item">
+        <input type="text" name="mvp_staff_member"placeholder="MVP Staff Member">
+        <input type="text" name="average_basket_spend"placeholder="Averange Basket Spend">
+    </div>
+    <button type="submit">Enter Data</button>
+    </form>
+{% endblock %}
