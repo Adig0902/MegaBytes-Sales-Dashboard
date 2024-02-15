@@ -5,28 +5,30 @@ from . import db
 
 my_view = Blueprint("my_view", __name__)
 
-@my_view.route("/")
-def index():
-    # daily_stats = DailyStats.query.all()
-    # return render_template('index.html', daily_stats=daily_stats)
-    # Calculate the total income, highest spend, best-selling item, worst-selling item,
-    # MVP staff member, and average basket spend
-    total_income = db.session.query(func.sum(DailyStats.total_income)).scalar()
-    highest_spend = db.session.query(func.max(DailyStats.highest_spend)).scalar()
-    best_selling_item = db.session.query(DailyStats.best_selling_item).order_by(DailyStats.total_income.desc()).first()
-    worst_selling_item = db.session.query(DailyStats.worst_selling_item).order_by(DailyStats.total_income.asc()).first()
-    mvp_staff_member = db.session.query(DailyStats.mvp_staff_member).order_by(DailyStats.total_income.desc()).first()
-    average_basket_spend = db.session.query(func.avg(DailyStats.average_basket_spend)).scalar()
+@my_view.route("/add",methods=["POST"])
+def add():
+    # try:
+        day_name=request.form.get("day_name")
+        total_income=request.form.get("total_income",type = float)
+        highest_spend = request.form.get("highest_spend",type = float)
+        best_selling_item=request.form.get("best_selling_item")
+        worst_selling_item=request.form.get("worst_selling_item")
+        mvp_staff_member=request.form.get("mvp_staff_member")
+        average_basket_spend=request.form.get("average_basket_spend")
+        new_daily_stats=DailyStats(total_income=total_income,highest_spend=highest_spend,best_selling_item=best_selling_item,worst_selling_item=worst_selling_item,mvp_staff_member=mvp_staff_member,day_name=day_name,average_basket_spend=average_basket_spend)
+        db.session.add(new_daily_stats)
+        db.session.commit()
+        return redirect(url_for("my_view.home"))
+    # except:
+    #     message="There was an error, make sure all the values are entered"
+    #     return redirect(url_for("my_view.home",message=message))
 
-    return render_template(
-        'index.html',
-        total_income=total_income,
-        highest_spend=highest_spend,
-        best_selling_item=best_selling_item,
-        worst_selling_item=worst_selling_item,
-        mvp_staff_member=mvp_staff_member,
-        average_basket_spend=average_basket_spend
-    )
+
+@my_view.route("/")
+def home():
+    daily_stats = DailyStats.query.all()
+    return render_template('home.html', daily_stats=daily_stats)
+    
 
 
 @my_view.route("/monday")

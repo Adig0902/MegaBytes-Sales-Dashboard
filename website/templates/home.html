@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<form action="/add" method="post">
+    <label>Input Data</label>
+    <div>
+    <input type="text" name="day_name"placeholder="Day Name">
+    <input type="number" name="total_income"placeholder="Total Income Made">
+    <input type="number" name="highest_spend"placeholder="Enter Highest Spend">
+    <input type="text" name="best_selling_item"placeholder="Best Selling Item">
+    <input type="text" name="worst_selling_item"placeholder="Worst Selling Item">
+    <input type="text" name="mvp_staff_member"placeholder="MVP Staff Member">
+    <input type="text" name="average_basket_spend"placeholder="Averange Basket Spend">
+</div>
+<button type="submit">Enter Data</button>
+</form>
+{% for data in daily_stats %}
+<div class="data">
+    <p>Total income:{{data.total_income}}- Highest Spend:{{data.highest_spend}}-- Best Selling Item:{{data.best_selling_item}} - Worst Selling Item:{{data.worst_selling_item}} - MVP Staff Member:{{data.mvp_staff_member}}</p>
+</div>
+{% endfor %}
+{% endblock %}
