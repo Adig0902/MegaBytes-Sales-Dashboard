@@ -1,0 +1,7 @@
+ Staff Number of Void Transactions
+0     Alex                          17
+1  Charlie                           8
+2     Emma                           5
+3   Hayley                           4
+4      Ima                           9
+5      Olu                           7
