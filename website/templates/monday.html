@@ -12,6 +12,9 @@
     {% else %}
         <p>No data available for Monday.</p>
     {% endif %}
-    <img src="static/images/Graphs_folder/item_popularity_chart_monday.png" alt="graph" class="right-image-day" >
-    <img src="static/images/Graphs_folder/payment_method_monday.png" alt="graph" class="right-image-day"style="width:500px; height:500px;" >
+    {% for data in daily_stats %}
+    <div class="data">
+    <p>Total income:{{data.total_income}}- Highest Spend:{{data.highest_spend}}-- Best Selling Item:{{data.best_selling_item}} - Worst Selling Item:{{data.worst_selling_item}} - MVP Staff Member:{{data.mvp_staff_member}}</p>
+</div>
+{% endfor %} 
 {% endblock %}

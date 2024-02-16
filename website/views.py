@@ -27,8 +27,6 @@ def add():
         mvp_staff_member=request.form.get("mvp_staff_member").title()
         average_basket_spend=request.form.get("average_basket_spend",type = float)
         new_daily_stats=DailyStats(total_income=total_income,highest_spend=highest_spend,best_selling_item=best_selling_item,worst_selling_item=worst_selling_item,mvp_staff_member=mvp_staff_member,day_name=day_name,average_basket_spend=average_basket_spend)
-        db.session.delete( DailyStats.query.filter_by(day_name=day_name).first())
-        db.session.delete( DailyStats.query.filter_by(day_name=day_name).first())
         db.session.add(new_daily_stats)
         db.session.commit()
         return redirect(url_for("my_view.home"))
@@ -56,7 +54,7 @@ def home():
 
         days = [id_for_day.get(r.id) for r in daily_stats]
         profit = df["total_income"].values
-        plt.style.use('ggplot')
+        # plt.style.use('ggplot')
         return render_template('home.html', daily_stats=daily_stats,weekly_stats=weekly_stats, days=days, profit=profit, mvp_name=mvp_name, max_spend=max_spend, highest_spend=highest_spend, highest_spend_day=highest_spend_day, best_selling_item=best_selling_item, worst_selling_item=worst_selling_item, message=message)
     else:
         return render_template("home.html", daily_stats=daily_stats, message=message)
