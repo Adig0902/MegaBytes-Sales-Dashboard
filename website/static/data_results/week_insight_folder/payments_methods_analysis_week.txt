@@ -1,0 +1,34 @@
+
+Sales by Payment Method:
+Payment Method
+Debit      164
+Voucher     49
+Cash        44
+Credit      39
+Name: count, dtype: int64
+
+
+The most common payment method is: Debit
+
+
+The least common payment method is: Credit
+
+
+Items sold by each payment method:
+Payment Method
+Cash       167
+Credit     172
+Debit      652
+Voucher    184
+Name: Total Items, dtype: int32
+
+
+Total cost made by each payment method:
+Payment Method
+Cash        280.40
+Credit      304.30
+Debit      1148.00
+Voucher     325.90
+Name: Cost, dtype: object
+
+

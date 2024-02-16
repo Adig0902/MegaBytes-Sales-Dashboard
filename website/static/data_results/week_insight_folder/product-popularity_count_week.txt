@@ -1,0 +1,32 @@
+
+Number of sales for each Item:
+Tea              191
+Hot Chocolate    184
+Americano        183
+Cappuccino       179
+Mocha            178
+Latte            169
+Stroopwafel       20
+Croissant         17
+Panini            15
+Buttered Roll     15
+Toast             13
+Muffin            11
+0                  1
+Name: count, dtype: int64
+
+Proportion of sales belonging to each item:
+Tea              16.24%
+Hot Chocolate    15.65%
+Americano        15.56%
+Cappuccino       15.22%
+Mocha            15.14%
+Latte            14.37%
+Stroopwafel        1.7%
+Croissant         1.45%
+Panini            1.28%
+Buttered Roll     1.28%
+Toast             1.11%
+Muffin            0.94%
+0                 0.09%
+Name: proportion, dtype: object

@@ -80,35 +80,39 @@ def monday():
 
 @my_view.route("/tuesday")
 def tuesday():
-    tuesday_data = DailyStats.query.filter_by(day_name="tuesday").first()
+    tuesday_data = DailyStats.query.filter_by(day_name="Tuesday").first()
     return render_template("tuesday.html", figures=tuesday_data)
 
 
 @my_view.route("/wednesday")
 def wednesday():
-    wednesday_data = DailyStats.query.filter_by(day_name="wednesday").first()
+    wednesday_data = DailyStats.query.filter_by(day_name="Wednesday").first()
     return render_template("wednesday.html", figures=wednesday_data)
 
 
 @my_view.route("/thursday")
 def thursday():
-    thursday_data = DailyStats.query.filter_by(day_name="thursday").first()
+    thursday_data = DailyStats.query.filter_by(day_name="Thursday").first()
     return render_template("thursday.html", figures=thursday_data)
 
 
 @my_view.route("/friday")
 def friday():
-    friday_data = DailyStats.query.filter_by(day_name="friday").first()
+    friday_data = DailyStats.query.filter_by(day_name="Friday").first()
     return render_template("friday.html", figures=friday_data)
 
 
 @my_view.route("/saturday")
 def saturday():
-    saturday_data = DailyStats.query.filter_by(day_name="saturday").first()
+    saturday_data = DailyStats.query.filter_by(day_name="Saturday").first()
     return render_template("saturday.html", figures=saturday_data)
 
 
 @my_view.route("/sunday")
 def sunday():
-    sunday_data = DailyStats.query.filter_by(day_name="sunday").first()
+    sunday_data = DailyStats.query.filter_by(day_name="Sunday").first()
     return render_template("sunday.html", figures=sunday_data)
+
+@my_view.route("/void")
+def void():
+    return render_template("void.html")

@@ -11,13 +11,13 @@ from graphs import *
 # Filepaths for Excel till data
 
 sale_data_file_names = [
-    "website\\data\\monday_data.xlsx",
-    "website\\data\\tuesday_data.xlsx",
-    "website\\data\\wednesday_data.xlsx",
-    "website\\data\\thursday_data.xlsx",
-    "website\\data\\friday_data.xlsx",
-    "website\\data\\saturday_data.xlsx",
-    "website\\data\\sunday_data.xlsx",
+    "data\\monday_data.xlsx",
+    "data\\tuesday_data.xlsx",
+    "data\\wednesday_data.xlsx",
+    "data\\thursday_data.xlsx",
+    "data\\friday_data.xlsx",
+    "data\\saturday_data.xlsx",
+    "data\\sunday_data.xlsx",
 ]
 
 
