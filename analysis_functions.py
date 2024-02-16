@@ -1,5 +1,7 @@
 import pandas as pd
 import os
+import sys
+import json
 from colorama import Fore, Style
 
 
@@ -223,6 +225,11 @@ def total_income_week(df):
 
 # Are these void transactions attributed to an individual
 # or are they distributed amongst the staff
+# this function creates a folder to save the result files
+# savings as individual daily results is beneficial to allow easy printing
+# we can compile results for week?
+# need to make a functionn to save graphs into a folder
+# save the six reults together then the 2 for graph separately
 # -------------------------------------------------------------------------
 
 
@@ -236,3 +243,15 @@ def void_transaction_data(df):
     print("Void transaction counts for each staff member:")
     print(void_counts_by_staff)
     return void_counts_by_staff
+
+
+def save_summary_void_data(void_data_week):
+    summary_void_data_week = (
+        void_data_week.groupby("Staff")["Number of Void Transactions"]
+        .sum()
+        .reset_index()
+    )
+    return summary_void_data_week
+
+
+# -------------------------------------------------------------------------

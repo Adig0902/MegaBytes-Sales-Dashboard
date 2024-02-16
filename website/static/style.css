@@ -10,7 +10,9 @@ header h1 {
     text-align: center;
     color: #15616d;
 }
-
+body {
+    background-color: #ffecd1;
+}
 header p {
     font-family: 'Roboto Slab', serif;
     font-size: 2rem;
@@ -18,7 +20,24 @@ header p {
     background: linear-gradient(  #ff7d00, #ffecd1,#78290f);
     color: #15616d
 }
+h2{
+    text-align: center;
+    text-decoration: underline;
+}
 
+li {
+    display:inline-block;
+    width:300px;
+    height:100px;
+    margin:5px;
+    padding:5px;
+    border:1px;
+    background-color:#ff7d00;
+    text-align: center;
+    color: #15616d;
+    font-size: 20px;
+    text-transform: capitalize;
+}
 p{
     display:block;
     margin-block-start: 1em;
@@ -51,4 +70,28 @@ a{
     text-decoration: underline;
     color:#ff7d00;
     font-weight:bold;
+}
+input{
+    font-family: Poppins, sans-serif;
+    line-height: 2; 
+    font-size: 100%; 
+    text-align: center;
+}
+
+.input-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px; 
+}
+.input-row input {
+    margin: 0 10px; 
+}
+button {
+    font-family: Poppins, sans-serif;
+    line-height: 2; 
+    font-size: 100%; 
+    text-align: center;
+    display: block; 
+    margin: auto; 
+    margin-top: 20px; 
 }

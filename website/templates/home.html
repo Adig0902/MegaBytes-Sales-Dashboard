@@ -3,20 +3,103 @@
 {% block content %}
 <form action="/add" method="post">
     <label>Input Data</label>
-    <div>
+    <div class="input-row">
     <input type="text" name="day_name"placeholder="Day Name">
     <input type="number" name="total_income"placeholder="Total Income Made">
     <input type="number" name="highest_spend"placeholder="Enter Highest Spend">
     <input type="text" name="best_selling_item"placeholder="Best Selling Item">
+</div>
+
+<div class="input-row">
     <input type="text" name="worst_selling_item"placeholder="Worst Selling Item">
     <input type="text" name="mvp_staff_member"placeholder="MVP Staff Member">
     <input type="text" name="average_basket_spend"placeholder="Averange Basket Spend">
 </div>
 <button type="submit">Enter Data</button>
+<div id="validationResult"></div>
 </form>
+<h2>Weekly Summary</h2>
+<ul>
+    <li>Total income: {{ weekly_stats.total_income }}</li>
+    <li>Highest spend: {{ weekly_stats.highest_spend }}</li>
+    <li>Best selling item: {{ weekly_stats.best_selling_item }}</li>
+    <li>Worst selling item: {{ weekly_stats.worst_selling_item }}</li>
+    <li>MVP staff member: {{ weekly_stats.mvp_staff_member }}</li>
+</ul>
+
+<script>
+    function capitalizeInputs() {
+        // Get all text input elements
+        var textInputs = document.querySelectorAll('input[type="text"]');
+
+        // Loop through text inputs and capitalize their values
+        textInputs.forEach(function (input) {
+            input.value = input.value.charAt(0).toUpperCase() + input.value.slice(1);
+        });
+    }
+
+    function validateInput() {
+        capitalizeInputs()
+
+        const totalIncome = document.getElementById('total_income').value;
+        const highestSpend = document.getElementById('highest_spend').value;
+        const bestSellingItem = document.getElementById('best_selling_item').value;
+        const worstSellingItem = document.getElementById('worst_selling_item').value;
+        const mvpStaffMember = document.getElementById('mvp_staff_member').value;
+        const averageBasketSpend = document.getElementById('average_basket_spend').value;
+
+        const integerRegex = /^[0-9]+$/;
+        const letterRegex = /^[a-zA-Z]+$/;
+        const validationResult = document.getElementById('validationResult');
+
+        // Reset validation result
+        validationResult.innerText = '';
+
+        if (!letterRegex.test(dayName)) {
+            validationResult.innerText = 'Day Name must contain only letters.';
+            return false; // Prevent form submission
+        }
+
+        if (!integerRegex.test(totalIncome)) {
+            validationResult.innerText = 'Total Income must be an integer.';
+            return false; // Prevent form submission
+        }
+
+        if (!integerRegex.test(highestSpend)) {
+            validationResult.innerText = 'Highest Spend must be an integer.';
+            return false; // Prevent form submission
+        }
+
+        if (!letterRegex.test(bestSellingItem)) {
+            validationResult.innerText = 'Best Selling Item must contain only letters.';
+            return false; // Prevent form submission
+        }
+
+        if (!letterRegex.test(worstSellingItem)) {
+            validationResult.innerText = 'Worst Selling Item must contain only letters.';
+            return false; // Prevent form submission
+        }
+
+        if (!letterRegex.test(mvpStaffMember)) {
+            validationResult.innerText = 'MVP Staff Member must contain only letters.';
+            return false; // Prevent form submission
+        }
+
+        if (!integerRegex.test(averageBasketSpend)) {
+            validationResult.innerText = 'Average Basket Spend must be an integer.';
+            return false; // Prevent form submission
+        }
+
+        // Add similar validation logic for other fields
+
+        return true; // Allow form submission
+    }
+</script>
 {% for data in daily_stats %}
 <div class="data">
     <p>Total income:{{data.total_income}}- Highest Spend:{{data.highest_spend}}-- Best Selling Item:{{data.best_selling_item}} - Worst Selling Item:{{data.worst_selling_item}} - MVP Staff Member:{{data.mvp_staff_member}}</p>
 </div>
 {% endfor %}
+
+
 {% endblock %}

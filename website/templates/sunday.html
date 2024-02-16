@@ -10,18 +10,7 @@
         <p>MVP Staff Member: {{ figures.mvp_staff_member }}</p>
         <p>Average Basket Spend: {{ figures.average_basket_spend }}</p>
     {% else %}
-        <p>No data available for Monday.</p>
+        <p>No data available for Sunday.</p>
     {% endif %}
-    <form action="/add" method="post">
-        <label>Input Data</label>
-        <div>
-        <input type="text" name="total_income"placeholder="Total Income Made">
-        <input type="text" name="highest_spend"placeholder="Enter Highest Spend">
-        <input type="text" name="best_selling_item"placeholder="Best Selling Item">
-        <input type="text" name="worst_selling_item"placeholder="Worst Selling Item">
-        <input type="text" name="mvp_staff_member"placeholder="MVP Staff Member">
-        <input type="text" name="average_basket_spend"placeholder="Averange Basket Spend">
-    </div>
-    <button type="submit">Enter Data</button>
-    </form>
+
 {% endblock %}

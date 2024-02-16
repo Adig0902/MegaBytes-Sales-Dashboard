@@ -11,13 +11,13 @@ from graphs import *
 # Filepaths for Excel till data
 
 sale_data_file_names = [
-    "data\\monday_data.xlsx",
-    "data\\tuesday_data.xlsx",
-    "data\\wednesday_data.xlsx",
-    "data\\thursday_data.xlsx",
-    "data\\friday_data.xlsx",
-    "data\\saturday_data.xlsx",
-    "data\\sunday_data.xlsx",
+    "website\\data\\monday_data.xlsx",
+    "website\\data\\tuesday_data.xlsx",
+    "website\\data\\wednesday_data.xlsx",
+    "website\\data\\thursday_data.xlsx",
+    "website\\data\\friday_data.xlsx",
+    "website\\data\\saturday_data.xlsx",
+    "website\\data\\sunday_data.xlsx",
 ]
 
 
@@ -38,12 +38,17 @@ def main_analysis(file_names):
     for file_name in file_names:
         day_name = extract_day_name(file_name)
         df = pd.read_excel(file_name)
+        df_void = df.copy()
+
+        # Handle void data calculations before cleaning database
         print(f"Void Data For {day_name}:")
-        void_data = void_transaction_data(df)
+        void_data = void_transaction_data(df_void)
         new_void_data = pd.DataFrame(
             {"Staff": void_data.index, "Number of Void Transactions": void_data.values}
         )
         void_data_week = pd.concat([void_data_week, new_void_data], ignore_index=True)
+        # Call the plot graph function
+        plot_void_transaction_data(void_data, day_name)
         cleaned_df = extract_and_clean(df)
         # show what day it is related to
         cleaned_df["Day of Week"] = day_name
@@ -58,7 +63,7 @@ def main_analysis(file_names):
         for_each_day_find(cleaned_df)
         save_output_to_file(
             for_each_day_find,
-            "website\static\data_results\Daily_Insights_folder",
+            r"website\static\data_results\daily_insights_folder",
             f"daily_results_{day_name}",
             cleaned_df,
         )
@@ -67,29 +72,29 @@ def main_analysis(file_names):
     print(f"{Fore.GREEN}Data For Whole Week{Style.RESET_ALL}\n\n")
     payment_methods_analysis(week_data)
     save_output_to_file(
-        for_each_day_find,
-        "website\static\data_results\Week_Insights_folder",
+        payment_methods_analysis,
+        r"website\static\data_results\week_insight_folder",
         f"payments_methods_analysis_week.txt",
         week_data,
     )
     max_cost_analysis(week_data)
     save_output_to_file(
-        for_each_day_find,
-        "website\static\data_results\Week_Insights_folder",
+        max_cost_analysis,
+        r"website\static\data_results\week_insight_folder",
         f"max_cost_analysis_week.txt",
         week_data,
     )
     product_popularity_count(week_data)
     save_output_to_file(
-        for_each_day_find,
-        "website\static\data_results\Week_Insights_folder",
+        product_popularity_count,
+        r"website\static\data_results\week_insight_folder",
         f"product-popularity_count_week.txt",
         week_data,
     )
     mvp_staff_member(week_data)
     save_output_to_file(
-        for_each_day_find,
-        "website\static\data_results\Week_Insights_folder",
+        mvp_staff_member,
+        r"website\static\data_results\week_insight_folder",
         f"mvp_staff_member_week.txt",
         week_data,
     )
@@ -97,44 +102,44 @@ def main_analysis(file_names):
     # Week income graph
     total_income_week(week_data)
     # Void data for week
-    summary_void_data_week = (
-        void_data_week.groupby("Staff")["Number of Void Transactions"]
-        .sum()
-        .reset_index()
-    )
+    save_summary_void_data(void_data_week)
     save_output_to_file(
-        for_each_day_find,
-        "website\static\data_results\Week_Insights_folder",
+        save_summary_void_data,
+        r"website\static\data_results\week_insight_folder",
         f"void_transaction_data_week.txt",
-        week_data,
+        void_data_week,
     )
-
-    print(f"Void Data For Week:\n{summary_void_data_week}")
+    print(f"Void Data For Week:\n{save_summary_void_data(void_data_week)}")
     # Store results in the week dataframe
-    return week_data
+
+    return week_data, void_data_week
 
 
 ###########################################################################
-
+# Create graphs for daily insights
 # Call the function
-compiled_data = main_analysis(sale_data_file_names)
-# Call the chart functions
-for day_name in compiled_data["Day of Week"].unique():
-    day_data = compiled_data[compiled_data["Day of Week"] == day_name]
-    fig, ax = plt.subplots()
+week_data, void_data_week = main_analysis(sale_data_file_names)
+
+
+for day_name in week_data["Day of Week"].unique():
+    day_data = week_data[week_data["Day of Week"] == day_name]
+
+    # Create a new figure for each day
+    fig, ax = plt.subplots(figsize=(15, 8))
+
+    # Plot item popularity chart
     plot_item_popularity_chart(day_data, day_name, ax)
-    filename = f"item_popularity_chart_{day_name}.png"
-    folder_name = "website\static\images\Graphs_folder"
-    save_graph_to_folder(fig, folder_name, filename)
 
+    # Plot payment methods pie chart
+    plot_payment_methods_pie_chart(day_data, day_name)
 
-overall_week_item_popularity_chart(compiled_data)
-filename = f"item_popularity_chart_week_.png"
-folder_name = "website\static\images\Graphs_folder"
-save_graph_to_folder(fig, folder_name, filename)
-payment_methods_pie_chart(compiled_data)
-filename = f"Payment_methods_piechart_week_.png"
-folder_name = "website\static\images\Graphs_folder"
-save_graph_to_folder(fig, folder_name, filename)
+    plt.close(fig)
+
+# create graphs for week insights
+plot_item_popularity_chart_week(week_data)
+
+plot_payment_methods_pie_chart_week(week_data)
+
+plot_void_transaction_data_week(void_data_week)
 
 ###########################################################################
