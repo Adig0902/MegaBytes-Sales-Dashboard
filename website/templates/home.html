@@ -18,20 +18,25 @@
 <button type="submit">Enter Data</button>
 <div id="validationResult"></div>
 </form>
-<h2>Weekly Summary</h2>
-<img src="{{ url_for('static', filename='images/dynamic_graph.png')}}" alt="Weekly Income Summary">
-</div>
-<div>
+
 <h2>Week Stats Summary</h2>
 <ul>
     {% if weekly_stats %}
-    <li>Total income: {{ weekly_stats.total_income }}</li>
-    <li>Highest spend: {{ weekly_stats.highest_spend }}</li>
+    <li >Total income: {{ weekly_stats.total_income }}</li>
+    <li >Highest spend: {{ weekly_stats.highest_spend }}</li>
     <li>Best selling item: {{ weekly_stats.best_selling_item }}</li>
     <li>Worst selling item: {{ weekly_stats.worst_selling_item }}</li>
     <li>MVP staff member: {{ weekly_stats.mvp_staff_member }}</li>
+    <li>Weekly average basket spend: {{ weekly_stats["average_basket_spend"] }}</li>
     {% endif %}
 </ul>
+
+<h2>Weekly Summary</h2>
+<div class="graph">
+<img src="{{ url_for('static', filename='images/dynamic_graph.png')}}" alt="Weekly Income Summary">
+</div>
+</div>
+<div>
 
 <script>
     function capitalizeInputs() {
@@ -101,11 +106,5 @@
         return true; // Allow form submission
     }
 </script>
-<!-- {% for data in daily_stats %}
-<div class="data">
-    <p>Total income:{{data.total_income}}- Highest Spend:{{data.highest_spend}}-- Best Selling Item:{{data.best_selling_item}} - Worst Selling Item:{{data.worst_selling_item}} - MVP Staff Member:{{data.mvp_staff_member}}</p>
-</div>
-{% endfor %} -->
-
 
 {% endblock %}

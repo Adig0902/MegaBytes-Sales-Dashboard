@@ -4,12 +4,11 @@ from .models import DailyStats
 from . import db
 import pandas as pd
 import matplotlib
+import os
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-# from io import BytesIO
-# import base64
 
 
 id_for_day = {
@@ -22,6 +21,26 @@ id_for_day = {
     7: "Sunday",
 }
 my_view = Blueprint("my_view", __name__)
+
+def weekly_summary(daily_stats, df):
+    summary = {}
+    summary["total_income"] = sum([d.total_income for d in daily_stats])
+    summary["highest_spend"] = max([d.highest_spend for d in daily_stats])
+    summary["best_selling_item"] = max(
+        set([d.best_selling_item for d in daily_stats]),
+        key=lambda x: [d.best_selling_item for d in daily_stats].count(x),
+    )
+    summary["worst_selling_item"] = min(
+        set([d.worst_selling_item for d in daily_stats]),
+        key=lambda x: [d.worst_selling_item for d in daily_stats].count(x),
+    )
+    summary["mvp_staff_member"] = max(
+        set([d.mvp_staff_member for d in daily_stats]),
+        key=lambda x: [d.mvp_staff_member for d in daily_stats].count(x),
+    )
+    # Calculate the overall weekly average basket spend from df
+    summary["average_basket_spend"] = df["average_basket_spend"].mean()
+    return summary
 
 
 @my_view.route("/add", methods=["POST"])
@@ -58,7 +77,6 @@ def home():
     daily_stats = DailyStats.query.all()
 
     if len(daily_stats) > 0:
-        weekly_stats = weekly_summary(daily_stats)
         df = pd.DataFrame(
             [
                 (
@@ -84,7 +102,7 @@ def home():
                 "average_basket_spend",
             ],
         )
-
+        weekly_stats = weekly_summary(daily_stats,df)
         # Calculate weekly income and update the graph
         days_of_week = [
             "Monday",
@@ -146,25 +164,6 @@ def home():
         return render_template("home.html", daily_stats=daily_stats, message=message)
 
 
-def weekly_summary(daily_stats):
-
-    summary = {}
-
-    summary["total_income"] = sum([d.total_income for d in daily_stats])
-    summary["highest_spend"] = max([d.highest_spend for d in daily_stats])
-    summary["best_selling_item"] = max(
-        set([d.best_selling_item for d in daily_stats]),
-        key=lambda x: [d.best_selling_item for d in daily_stats].count(x),
-    )
-    summary["worst_selling_item"] = min(
-        set([d.worst_selling_item for d in daily_stats]),
-        key=lambda x: [d.worst_selling_item for d in daily_stats].count(x),
-    )
-    summary["mvp_staff_member"] = max(
-        set([d.mvp_staff_member for d in daily_stats]),
-        key=lambda x: [d.mvp_staff_member for d in daily_stats].count(x),
-    )
-    return summary
 
 
 @my_view.route("/monday")
@@ -211,4 +210,14 @@ def sunday():
 
 @my_view.route("/void")
 def void():
-    return render_template("void.html")
+    # Assuming the text file is named "void_transaction_data_week.txt" and is in the "static/data_results/week_insight_folder" directory
+    file_path = os.path.join("website","static", "data_results", "week_insight_folder", "void_transaction_data_week.txt")
+
+    try:
+        with open(file_path, "r", encoding="utf-8") as file:
+            text_content = file.read()
+    except FileNotFoundError:
+        # Handle the case where the file is not found
+        text_content = "Weekly transaction data not available."
+
+    return render_template("void.html", text=text_content)
